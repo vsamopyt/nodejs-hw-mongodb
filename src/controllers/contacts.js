@@ -34,27 +34,27 @@ export const addContactController = async (reg, res) => {
   });
 };
 
-export const upsertContactController = async (reg, res) => {
-  const { contactId } = reg.params;
-  console.log(reg.body);
+// export const upsertContactController = async (reg, res) => {
+//   const { contactId } = reg.params;
+//   console.log(reg.body);
 
-  const {isNew, data} = await contactServices.updateContact(
-    { _id: contactId },
-    reg.body,
-    {upsert: true}
-  );
+//   const {isNew, data} = await contactServices.updateContact(
+//     { _id: contactId },
+//     reg.body,
+//     {upsert: true}
+//   );
 
-  console.log(isNew);
-  console.log(data);
+//   console.log(isNew);
+//   console.log(data);
 
-const status = isNew? 201: 200;
+// const status = isNew? 201: 200;
 
-  res.status(status).json({
-    status: status,
-    message: 'Successfully patched a contact!',
-    data: data,
-  });
-};
+//   res.status(status).json({
+//     status: status,
+//     message: 'Successfully patched a contact!',
+//     data: data,
+//   });
+// };
 
 export const updateContactController = async (reg, res) => {
   const { contactId } = reg.params;
