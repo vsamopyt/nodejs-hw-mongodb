@@ -4,11 +4,11 @@ import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 
 const contactsRouter = Router();
 contactsRouter.get('/', ctrlWrapper(contactController.getAllContactsController));
+contactsRouter.get('/:contactId', ctrlWrapper(contactController.getContactbyIdController));
+contactsRouter.post('/', ctrlWrapper(contactController.addContactController));
+contactsRouter.put('/:contactId', ctrlWrapper(contactController.upsertContactController ));
+contactsRouter.patch('/:contactId', ctrlWrapper(contactController.updateContactController ));
+contactsRouter.delete('/:contactId',ctrlWrapper(contactController.deleteContactController));
 
-contactsRouter.get('/:contactId', ctrlWrapper(contactController.getContactbyIdController ));
-
-// contactsRouter.get('/', contactController.getAllContactsController);
-
-// contactsRouter.get('/:contactId', contactController.getContactbyIdController );
 
 export default contactsRouter;
