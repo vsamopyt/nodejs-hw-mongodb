@@ -8,8 +8,9 @@ export const createContact = (payload) => contactCollection.create(payload);
 
 // export const updateContact = async (filter, data, options = {}) => {
 //   const rawResult = await contactCollection.findOneAndUpdate(filter, data, {
-//     new: true,
+//     //new: true,
 //     includeResultMetadata: true,
+//     //runValidators: true,
 //     ...options,
 //   });
 //   if (!rawResult || !rawResult.value) return null;
@@ -22,7 +23,8 @@ export const createContact = (payload) => contactCollection.create(payload);
 
 export const patchContact = (filter, data, options = {}) => {
   return contactCollection.findOneAndUpdate(filter, data, {
-    new: true,
+    // new: true,
+    // runValidators: true,
     ...options,
   });
 };
