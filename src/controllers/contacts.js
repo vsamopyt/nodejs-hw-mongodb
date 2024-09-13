@@ -3,19 +3,16 @@ import createHttpError from 'http-errors';
 import parsePaginationParams from '../utils/parsePaginationParams.js';
 import parseSortParams from '../utils/parseSortParams.js';
 import { sortFields } from "../db/models/Contact.js";
+import parseContactsFilterParams from '../utils/filters/parseContactsFilterParams.js';
 
-// import { contactsAddSchema } from '../validation/contacts.js';
 
 export const getAllContactsController = async (reg, res) => {
 
   const {perPage, page} = parsePaginationParams(reg.query);
   const {sortBy, sortOrder} = parseSortParams({...reg.query, sortFields});
+  const filter = parseContactsFilterParams(reg.query);
 
-  console.log(sortBy, sortOrder);
-  
-
-  const data = await contactServices.getAllContacts(perPage, page, sortBy, sortOrder );
-
+  const data = await contactServices.getAllContacts(perPage, page, sortBy, sortOrder, filter);
 
   res.status(200).json({
     status: 200,
@@ -26,9 +23,6 @@ export const getAllContactsController = async (reg, res) => {
 
 export const getContactbyIdController = async (reg, res) => {
   const { contactId } = reg.params;
-  // console.log(reg.params);
-
-  // console.log(reg.query);
 
   const data = await contactServices.getContactbyId(contactId);
 
