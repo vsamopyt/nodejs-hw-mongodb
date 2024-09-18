@@ -13,7 +13,7 @@ const contactSchema = new Schema({
   },
   email: {
     type: String,
-    // match: [emailRegexp,`email must be in pattern${emailRegexp}`],
+    match: [emailRegexp,`email must be in pattern${emailRegexp}`],
     // required: true,
   },
   isFavourite: {
