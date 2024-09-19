@@ -34,7 +34,7 @@ contactSchema.pre("findOneAndUpdate", setUpdateOptions);
 contactSchema.post("findOneAndUpdate", handleSaveError);
 
 
-const contactCollection = model("contact", contactSchema );
+const contactCollection = model("contact", contactSchema ); // name of collection should be gross lettter ContactsCollection
 export const sortFields =["name", "phoneNumber", "email", "isFavourite",  "contactType", "createdAt", "updatedAt"];
 
 export default contactCollection;
