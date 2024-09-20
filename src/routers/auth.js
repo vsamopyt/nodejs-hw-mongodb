@@ -5,6 +5,7 @@ import * as usersValidateSchema from "../validation/users.js";
 import validateBody from '../utils/validateBody.js';
 
 
+
 const authRouter = Router();
 
 authRouter.post('/register', validateBody(usersValidateSchema.usersSignupSchema), ctrlWrapper(authController.signupController));
