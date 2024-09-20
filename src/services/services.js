@@ -3,77 +3,42 @@ import calculatePaginationData from '../utils/calculatePaginationData.js';
 import { SORTED_ORDER } from '../constants/index.js';
 import parseSortParams from '../utils/parseSortParams.js';
 
-// export const getAllContacts = () => contactCollection.find();
-
-// export const getAllContacts = async (
-//   perPage,
-//   page,
-//   sortBy = '_id',
-//   sortOrder = SORTED_ORDER[0],
-//   filter = {},
-// ) => {
-//   const skip = (page - 1) * perPage;
-//   const limit = perPage;
-
-//   const studentsQuery = contactCollection.find();
-
-//   const data = await contactCollection
-//     .find()
-//     .skip(skip)
-//     .limit(limit)
-//     .sort({ [sortBy]: sortOrder });
-//   const count = await contactCollection.find().countDocuments();
-//   const paginationData = calculatePaginationData(perPage, page, count);
-//   return {
-//     data,
-//     page,
-//     perPage,
-//     totalItems: count,
-//     ...paginationData,
-//   };
-// };
-
-
-export const getAllContacts = async (
+export const getAllContacts = async ({
   perPage,
   page,
   sortBy = '_id',
   sortOrder = SORTED_ORDER[0],
   filter = {},
-) => {
+}) => {
   const skip = (page - 1) * perPage;
   const limit = perPage;
 
   const contactsQuery = contactCollection.find();
 
-console.log("filter", filter.type, filter.isFavourite );
+  if (filter.type) {
+    contactsQuery.where('contactType').equals(filter.type);
+  }
 
+  if (typeof filter.isFavourite === 'boolean') {
+    contactsQuery.where('isFavourite').eq(filter.isFavourite);
+  }
 
-if(filter.type) {
-  contactsQuery.where("contactType").equals(filter.type);
-}  
+  if (filter.userId) {
+    contactsQuery.where('userId').equals(filter.userId);
+  }
 
-console.log(typeof filter.isFavourite === 'boolean');
-
-if(typeof filter.isFavourite === 'boolean') {
-  contactsQuery.where("isFavourite").eq(filter.isFavourite);
-}
-
-
- // const data = await contactCollection
-  //   .find()
-  //   .skip(skip)
-  //   .limit(limit)
-  //   .sort({ [sortBy]: sortOrder });
-
+  const count = await contactCollection
+    .find()
+    .merge(contactsQuery)
+    .countDocuments();
 
   const data = await contactsQuery
     .skip(skip)
     .limit(limit)
     .sort({ [sortBy]: sortOrder });
 
-  const count = await contactCollection.find().merge(contactsQuery).countDocuments();
   const paginationData = calculatePaginationData(perPage, page, count);
+
   return {
     data,
     page,
@@ -83,7 +48,7 @@ if(typeof filter.isFavourite === 'boolean') {
   };
 };
 
-export const getContactbyId = (id) => contactCollection.findById(id);
+export const getContact = filter => contactCollection.findOne(filter);
 
 export const createContact = (payload) => contactCollection.create(payload);
 

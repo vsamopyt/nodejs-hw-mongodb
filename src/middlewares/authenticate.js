@@ -30,6 +30,8 @@ return next(createHttpError(401,"Autorization header not found"));
     return next(createHttpError(401, "Use not found"));
   } // checking 5
 
+  req.user =user;
+
 next();
 
 };
