@@ -47,31 +47,22 @@ export const login = async (payload) => {
   const { email, password } = payload;
   const user = await UsersCollection.findOne({ email });
   if (!user) {
-    throw createHttpError(401, 'email or password are invalid');
+    throw createHttpError(401, 'Email or password are invalid');
   }
 
   console.log();
 
   const passwordCompare = await bcrypt.compare(password, user.password);
   if (!passwordCompare) {
-    throw createHttpError(401, 'email or password are invalid');
+    throw createHttpError(401, 'Email or password are invalid');
   }
 
   await SessionCollection.deleteOne({ userId: user._id });
-
-  // const accessToken = randomBytes(30).toString("base64");
-  // const refreshToken = randomBytes(30).toString("base64");
-  // const accessTokenValidUntil = new Date(Date.now()+ accessTokenLifetime) ;
-  // const refreshTokenValidUntil = new Date(Date.now()+  refreshTokinLifeTime);
 
   const sessionData = createSession();
   const userSession = await SessionCollection.create({
     userId: user._id,
     ...sessionData,
-    // accessToken,
-    // refreshToken,
-    // accessTokenValidUntil,
-    // refreshTokenValidUntil
   });
 
   return userSession;
@@ -103,11 +94,11 @@ export const refreshSession = async ({ refreshToken, sessionId }) => {
   const userSession = await SessionCollection.create({
     userId: oldSession.userId,
     ...sessionData,
-    // accessToken,
-    // refreshToken,
-    // accessTokenValidUntil,
-    // refreshTokenValidUntil
   });
 
   return userSession;
+};
+
+export const signout = async (sessionId) => {
+  await SessionCollection.deleteOne({ _id: sessionId });
 };

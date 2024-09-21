@@ -18,7 +18,7 @@ return next(createHttpError(401,"Autorization header not found"));
 
   const session = await authServices.findSessionByAccessToken(token);
   if(!session ) {
-    return next(createHttpError(401, "session not found"));
+    return next(createHttpError(401, "Session not found"));
   };   // checking 3
 
   if (new Date()> session.accessTokenValidUntil) {
@@ -27,7 +27,7 @@ return next(createHttpError(401,"Autorization header not found"));
 
   const user =await authServices.findUser({_id:session.userId});
   if(!user) {
-    return next(createHttpError(401, "Use not found"));
+    return next(createHttpError(401, "User not found"));
   } // checking 5
 
   req.user =user;
