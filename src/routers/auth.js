@@ -9,6 +9,9 @@ import validateBody from '../utils/validateBody.js';
 const authRouter = Router();
 
 authRouter.post('/register', validateBody(usersValidateSchema.usersSignupSchema), ctrlWrapper(authController.signupController));
+
 authRouter.post('/login', validateBody(usersValidateSchema.usersLoginSchema), ctrlWrapper(authController.loginController));
+
+authRouter.post("/refresh",ctrlWrapper(authController.refreshController));
 
 export default authRouter;
