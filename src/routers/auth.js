@@ -10,6 +10,10 @@ const authRouter = Router();
 
 authRouter.post('/register', validateBody(usersValidateSchema.usersSignupSchema), ctrlWrapper(authController.signupController));
 
+authRouter.post('/send-reset-email', validateBody(usersValidateSchema.requestResetEmailSchema), ctrlWrapper(authController.requestResetEmailController));
+
+authRouter.post('/reset-pwd', validateBody(usersValidateSchema.resetPasswordSchema), ctrlWrapper(authController.resetPasswordController));
+
 authRouter.post('/login', validateBody(usersValidateSchema.usersLoginSchema), ctrlWrapper(authController.loginController));
 
 authRouter.post("/refresh", ctrlWrapper(authController.refreshController));
