@@ -1,9 +1,10 @@
-import * as contactServices from '../services/services.js';
 import createHttpError from 'http-errors';
+import * as contactServices from '../services/services.js';
+import { sortFields } from "../db/models/Contact.js";
 import parsePaginationParams from '../utils/parsePaginationParams.js';
 import parseSortParams from '../utils/parseSortParams.js';
-import { sortFields } from "../db/models/Contact.js";
 import parseContactsFilterParams from '../utils/filters/parseContactsFilterParams.js';
+import saveFileToUploadDir from '../utils/saveFileToUploadDir.js';
 
 
 
@@ -46,16 +47,23 @@ export const getContactbyIdController = async (reg, res) => {
 };
 
 export const addContactController = async (reg, res) => {
+  // console.log(reg.body);
+  // console.log(reg.file);
+  let photo;
+  if(reg.file) {
+  
+   photo = await saveFileToUploadDir(reg.file);
+  }
+
 
   const { _id:userId} = reg.user;
 
-  const data = await contactServices.createContact({...reg.body, userId});
+  const data = await contactServices.createContact({...reg.body, userId, photo});
   res.status(201).json({
     status: 201,
     message: `Successfully created a contact!`,
     data: data,
   });
-
 
 };
 

@@ -23,6 +23,8 @@ export function setupServer() {
 
   app.use(cookieParser());
 
+  app.use(express.static("uploads")); 
+
   app.use('/auth', authRouter);
 
   app.use('/contacts', contactsRouter);
