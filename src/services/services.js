@@ -68,12 +68,32 @@ export const createContact = (payload) => contactCollection.create(payload);
 // };
 
 export const patchContact = (filter, data, options = {}) => {
+
+  // return contactCollection.findOne({filter});
+
+ 
+
   return contactCollection.findOneAndUpdate(filter, data, {
-    // new: true,
-    // runValidators: true,
-    ...options,
+      ...options,
   });
 };
+
+export const getFileName = (filter) => {
+
+//   const contact =contactCollection.findOne(filter);
+// console.log("contact ", );
+const contact = contactCollection.findOne(filter);
+
+  // return contactCollection.findOne(filter);
+  return contact;
+
+ 
+
+  // return contactCollection.findOneAndUpdate(filter, data, {
+  //     ...options,
+  // });
+};
+
 
 export const deleteContact = (filter) => {
   return contactCollection.findOneAndDelete(filter);

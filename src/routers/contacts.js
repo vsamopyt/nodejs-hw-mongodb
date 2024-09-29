@@ -19,7 +19,8 @@ contactsRouter.post('/', upload.single("photo"), validateBody(validateSchemas.co
 
 // contactsRouter.put('/:contactId', isValidId, validateBody(validateSchemas.contactsAddSchema), ctrlWrapper(contactController.upsertContactController ));
 
-contactsRouter.patch('/:contactId', isValidId, validateBody(validateSchemas.contactsPatchSchema), ctrlWrapper(contactController.updateContactController ));
+// contactsRouter.patch('/:contactId', isValidId, validateBody(validateSchemas.contactsPatchSchema), ctrlWrapper(contactController.updateContactController ));
+contactsRouter.patch('/:contactId', upload.single("photo"), isValidId, validateBody(validateSchemas.contactsPatchSchema), ctrlWrapper(contactController.updateContactController ));
 
 contactsRouter.delete('/:contactId', isValidId, ctrlWrapper(contactController.deleteContactController));
 

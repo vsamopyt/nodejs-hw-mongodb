@@ -34,4 +34,5 @@ export const contactsPatchSchema = Joi.object({
   //       ', ',
   //     )}`,
   //   }),
+  photo: Joi.string()
 });
