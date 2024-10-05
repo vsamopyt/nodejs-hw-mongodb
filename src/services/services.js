@@ -1,7 +1,7 @@
 import contactCollection from '../db/models/Contact.js';
 import calculatePaginationData from '../utils/calculatePaginationData.js';
 import { SORTED_ORDER } from '../constants/index.js';
-import parseSortParams from '../utils/parseSortParams.js';
+
 
 export const getAllContacts = async ({
   perPage,
@@ -71,7 +71,7 @@ export const patchContact = (filter, data, options = {}) => {
 
   // return contactCollection.findOne({filter});
 
- 
+
 
   return contactCollection.findOneAndUpdate(filter, data, {
       ...options,
@@ -87,7 +87,7 @@ const contact = contactCollection.findOne(filter);
   // return contactCollection.findOne(filter);
   return contact;
 
- 
+
 
   // return contactCollection.findOneAndUpdate(filter, data, {
   //     ...options,
